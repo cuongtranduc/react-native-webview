@@ -504,10 +504,9 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
     view.loadUrl(BLANK_URL);
   }
 
-  @ReactProp(name = "referer") {
-    public void setReferer(WebView view, string refererUrl) {
-      ((RNCWebView) view).progressChangedFilter.setRefererUrl(refererUrl);
-    }
+  @ReactProp(name = "referer")
+  public void setReferer(WebView view, String refererUrl) {
+    ((RNCWebView) view).progressChangedFilter.setRefererUrl(refererUrl);
   }
 
   @ReactProp(name = "onContentSizeChange")
@@ -821,6 +820,7 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
       progressChangedFilter.setWaitingForCommandLoadUrl(true);
       // check out more details about set custom headers at:
       // https://github.com/react-native-community/react-native-webview/blob/master/docs/Guide.md#setting-custom-headers
+      WritableMap event = createWebViewEvent(view, url);
       String refererUrl = progressChangedFilter.getRefererUrl();
       if (refererUrl != null) {
         event.putString("referer", refererUrl);
